@@ -201,10 +201,13 @@ export type QueryLocationsByIdsArgs = {
   ids: Array<Scalars['ID']>;
 };
 
-export type GetCharactersQueryVariables = Exact<{ [key: string]: never; }>;
+export type GetCharactersQueryVariables = Exact<{
+  page?: InputMaybe<Scalars['Int']>;
+  name?: InputMaybe<Scalars['String']>;
+}>;
 
 
-export type GetCharactersQuery = { __typename?: 'Query', characters?: { __typename?: 'Characters', results?: Array<{ __typename?: 'Character', id?: string | null, name?: string | null, species?: string | null } | null> | null } | null };
+export type GetCharactersQuery = { __typename?: 'Query', characters?: { __typename?: 'Characters', info?: { __typename?: 'Info', count?: number | null, pages?: number | null, next?: number | null, prev?: number | null } | null, results?: Array<{ __typename?: 'Character', id?: string | null, name?: string | null, image?: string | null, species?: string | null, status?: string | null, origin?: { __typename?: 'Location', name?: string | null } | null } | null> | null } | null };
 
 export type GetCharacterByIdQueryVariables = Exact<{
   id: Scalars['ID'];
@@ -215,12 +218,23 @@ export type GetCharacterByIdQuery = { __typename?: 'Query', character?: { __type
 
 
 export const GetCharactersDocument = gql`
-    query GetCharacters {
-  characters {
+    query GetCharacters($page: Int, $name: String) {
+  characters(page: $page, filter: {name: $name}) {
+    info {
+      count
+      pages
+      next
+      prev
+    }
     results {
       id
       name
+      image
       species
+      status
+      origin {
+        name
+      }
     }
   }
 }
@@ -238,6 +252,8 @@ export const GetCharactersDocument = gql`
  * @example
  * const { data, loading, error } = useGetCharactersQuery({
  *   variables: {
+ *      page: // value for 'page'
+ *      name: // value for 'name'
  *   },
  * });
  */
