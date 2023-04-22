@@ -1,0 +1,22 @@
+query GetCharacters {
+  characters {
+    results {
+      id
+      name
+      species
+    }
+  }
+}
+
+query GetCharacterById($id: ID!) {
+  character(id: $id) {
+    id
+    name
+    image
+    species
+    status
+    origin {
+      name
+    }
+  }
+}
