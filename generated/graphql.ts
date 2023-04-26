@@ -204,6 +204,10 @@ export type QueryLocationsByIdsArgs = {
 export type GetCharactersQueryVariables = Exact<{
   page?: InputMaybe<Scalars['Int']>;
   name?: InputMaybe<Scalars['String']>;
+  status?: InputMaybe<Scalars['String']>;
+  species?: InputMaybe<Scalars['String']>;
+  type?: InputMaybe<Scalars['String']>;
+  gender?: InputMaybe<Scalars['String']>;
 }>;
 
 
@@ -218,8 +222,11 @@ export type GetCharacterByIdQuery = { __typename?: 'Query', character?: { __type
 
 
 export const GetCharactersDocument = gql`
-    query GetCharacters($page: Int, $name: String) {
-  characters(page: $page, filter: {name: $name}) {
+    query GetCharacters($page: Int, $name: String, $status: String, $species: String, $type: String, $gender: String) {
+  characters(
+    page: $page
+    filter: {name: $name, status: $status, species: $species, type: $type, gender: $gender}
+  ) {
     info {
       count
       pages
@@ -254,6 +261,10 @@ export const GetCharactersDocument = gql`
  *   variables: {
  *      page: // value for 'page'
  *      name: // value for 'name'
+ *      status: // value for 'status'
+ *      species: // value for 'species'
+ *      type: // value for 'type'
+ *      gender: // value for 'gender'
  *   },
  * });
  */

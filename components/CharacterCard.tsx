@@ -16,6 +16,7 @@ const CharacterCard: React.FC<CharacterCardProps> = ({ character }) => {
         cursor="pointer"
         _hover={{ boxShadow: "md" }}
         w="300px"
+        background={"rgba(255,255,255,0.75)"}
       >
         <Image src={`${character.image}`} alt={`${character.name}`} />
         <VStack p={4} spacing={2}>
