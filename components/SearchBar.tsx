@@ -14,15 +14,25 @@ const SearchBar: FC<SearchBarProps> = ({ setSearchQuery }) => {
   };
 
   const handleSearchSubmit = (event: ChangeEvent<HTMLInputElement>) => {
-    console.log("Search submiterd")
     event.preventDefault();
     setSearchQuery(searchValue);
   };
 
   return (
-    <InputGroup mb={10} maxW="lg" mx="auto">
-      <InputLeftElement pointerEvents="none">
-        <SearchIcon color="gray.300" />
+    <InputGroup
+      mb={10}
+      maxW="lg"
+      mx="auto"
+      borderRadius="md"
+      boxShadow="xl"
+      overflow="hidden"
+    >
+      <InputLeftElement
+        pointerEvents="none"
+        paddingLeft={3}
+        color="brand.secondary"
+      >
+        <SearchIcon />
       </InputLeftElement>
       <Input
         type="text"
@@ -30,7 +40,19 @@ const SearchBar: FC<SearchBarProps> = ({ setSearchQuery }) => {
         value={searchValue}
         onChange={handleSearchChange}
         onSubmit={handleSearchSubmit}
-        background="rgba(255,255,255,0.75)"
+        background="brand.background"
+        borderColor="transparent"
+        borderRadius="none"
+        _hover={{
+          borderColor: "transparent",
+        }}
+        _focus={{
+          borderColor: "brand.primary",
+          boxShadow: "none",
+        }}
+        paddingLeft={10}
+        color="brand.text"
+        fontWeight="medium"
       />
     </InputGroup>
   );
