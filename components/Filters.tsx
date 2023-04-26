@@ -1,4 +1,4 @@
-import { Box, Stack, Select } from "@chakra-ui/react";
+import { Box, Stack, Select, useTheme } from "@chakra-ui/react";
 import { FC, ChangeEvent } from "react";
 
 interface Filters {
@@ -13,6 +13,7 @@ interface FiltersProps {
 }
 
 const Filters: FC<FiltersProps> = ({ setFilters }) => {
+  const theme = useTheme();
   const handleFilterChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = event.target;
     setFilters({
@@ -27,6 +28,8 @@ const Filters: FC<FiltersProps> = ({ setFilters }) => {
           name="status"
           placeholder="Status"
           onChange={handleFilterChange}
+          bg={theme.colors.brand.background}
+          color={theme.colors.brand.text}
         >
           <option value="alive">Alive</option>
           <option value="dead">Dead</option>
@@ -36,6 +39,8 @@ const Filters: FC<FiltersProps> = ({ setFilters }) => {
           name="species"
           placeholder="Species"
           onChange={handleFilterChange}
+          bg={theme.colors.brand.background}
+          color={theme.colors.brand.text}
         >
           <option value="human">Human</option>
           <option value="alien">Alien</option>
@@ -45,13 +50,21 @@ const Filters: FC<FiltersProps> = ({ setFilters }) => {
           name="gender"
           placeholder="Gender"
           onChange={handleFilterChange}
+          bg={theme.colors.brand.background}
+          color={theme.colors.brand.text}
         >
           <option value="male">Male</option>
           <option value="female">Female</option>
           <option value="genderless">Genderless</option>
           <option value="unknown">Unknown</option>
         </Select>
-        <Select name="type" placeholder="Type" onChange={handleFilterChange}>
+        <Select
+          name="type"
+          placeholder="Type"
+          onChange={handleFilterChange}
+          bg={theme.colors.brand.background}
+          color={theme.colors.brand.text}
+        >
           {/* Add more types if necessary */}
           <option value="parasite">Parasite</option>
           <option value="mythological">Mythological</option>
