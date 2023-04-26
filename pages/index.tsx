@@ -13,6 +13,7 @@ import { Pagination } from "../components/Pagination";
 import SearchBar from "../components/SearchBar";
 import Filters from "../components/Filters";
 import { useCharacterList } from "../hooks/useCharacterList";
+import Layout from "../components/Layout";
 
 const HomePage: NextPage = () => {
   const {
@@ -54,37 +55,18 @@ const HomePage: NextPage = () => {
   console.log(characterList);
 
   return (
-    <Box
-      minHeight="100vh"
-      backgroundImage="url('https://wallpaperaccess.com/full/85334.jpg')"
-      backgroundPosition="0 -400px"
-      // backgroundSize="cover"
-      backgroundColor="black"
-      backgroundRepeat="no-repeat"
-    >
-      <Container maxW="container.xl" py={10}>
-        <Heading
-          as="h1"
-          size="4xl"
-          textAlign="center"
-          mb={10}
-          color="white"
-          mt={"7.5%"}
-        >
-          Rick and Morty Characters
-        </Heading>
-        <SearchBar setSearchQuery={handleSearchQueryChange} />
-        <Filters setFilters={handleFiltersChange} />
-        {content}
-        <Flex my={8} justifyContent="center" width="100%">
-          <Pagination
-            currentPage={pageNumber}
-            totalPages={info?.pages || 1}
-            onPageChange={handlePageChange}
-          />
-        </Flex>
-      </Container>
-    </Box>
+    <Layout title="Characters">
+      <SearchBar setSearchQuery={handleSearchQueryChange} />
+      <Filters setFilters={handleFiltersChange} />
+      {content}
+      <Flex my={8} justifyContent="center" width="100%">
+        <Pagination
+          currentPage={pageNumber}
+          totalPages={info?.pages || 1}
+          onPageChange={handlePageChange}
+        />
+      </Flex>
+    </Layout>
   );
 };
 
