@@ -12,7 +12,11 @@ query GetCharacters($page: Int, $name: String, $status: String, $species: String
       image
       species
       status
+      type
       origin {
+        name
+      }
+      location {
         name
       }
     }
