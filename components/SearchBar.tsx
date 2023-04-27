@@ -21,11 +21,9 @@ const SearchBar: FC<SearchBarProps> = ({ setSearchQuery }) => {
   return (
     <InputGroup
       mb={10}
-      maxW="lg"
       mx="auto"
       borderRadius="md"
       boxShadow="xl"
-      overflow="hidden"
     >
       <InputLeftElement
         pointerEvents="none"
@@ -42,7 +40,6 @@ const SearchBar: FC<SearchBarProps> = ({ setSearchQuery }) => {
         onSubmit={handleSearchSubmit}
         background="brand.background"
         borderColor="transparent"
-        borderRadius="none"
         _hover={{
           borderColor: "transparent",
         }}

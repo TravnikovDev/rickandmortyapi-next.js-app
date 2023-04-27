@@ -56,26 +56,51 @@ const theme = extendTheme({
     },
     Input: {
       baseStyle: {
-        borderColor: "brand.secondary",
-        _hover: {
-          borderColor: "brand.primary",
+        field: {
+          background: "brand.background",
+          borderColor: "transparent",
+          borderRadius: "none",
+          _hover: {
+            borderColor: "transparent",
+          },
+          _focus: {
+            borderColor: "brand.primary",
+            boxShadow: "none",
+          },
+          paddingLeft: 10,
+          color: "brand.text",
+          fontWeight: "medium",
         },
-        _focus: {
-          borderColor: "brand.primary",
-        },
+      },
+    },
+    InputGroup: {
+      baseStyle: {
+        borderRadius: "md",
+        boxShadow: "xl",
+        overflow: "hidden",
+      },
+    },
+    InputLeftElement: {
+      baseStyle: {
+        pointerEvents: "none",
+        paddingLeft: 3,
+        color: "brand.secondary",
       },
     },
     Select: {
       baseStyle: {
-        borderColor: "brand.secondary",
-        bg: "brand.background",
-        color: "brand.text",
-        _hover: {
-          borderColor: "brand.primary",
-        },
-        _focus: {
-          borderColor: "brand.primary",
-          boxShadow: "0 0 0 1px #7CD7D9",
+        field: {
+          borderColor: "brand.secondary",
+          _hover: {
+            borderColor: "brand.primary",
+          },
+          _focus: {
+            borderColor: "brand.primary",
+          },
+          background: "brand.background",
+          borderRadius: "none",
+          color: "brand.text",
+          fontWeight: "medium",
         },
       },
     },
