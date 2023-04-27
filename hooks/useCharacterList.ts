@@ -9,7 +9,7 @@ import {
   selectCharacterListState,
   CharacterListState,
 } from "../store/characterList/slice";
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 
 export const useCharacterList = () => {
   const dispatch = useDispatch();
@@ -37,19 +37,31 @@ export const useCharacterList = () => {
     },
   });
 
-  const handleSearchQueryChange = (query: string) => {
-    dispatch(setSearchQuery(query));
-    dispatch(setPageNumber(1));
-  };
+  const handleSearchQueryChange = useCallback(
+    (query: string) => {
+      console.info("handleSearchQueryChange", query);
+      dispatch(setSearchQuery(query));
+      dispatch(setPageNumber(1));
+    },
+    [dispatch]
+  );
 
-  const handleFiltersChange = (newFilters: Record<string,string>) => {
-    dispatch(setFilters(newFilters as CharacterListState["filters"]));
-    dispatch(setPageNumber(1));
-  };
+  const handleFiltersChange = useCallback(
+    (newFilters: Record<string, string>) => {
+      console.info("handleFiltersChange", newFilters);
+      dispatch(setFilters(newFilters as CharacterListState["filters"]));
+      dispatch(setPageNumber(1));
+    },
+    [dispatch]
+  );
 
-  const handlePageChange = (newPage: number) => {
-    dispatch(setPageNumber(newPage));
-  };
+  const handlePageChange = useCallback(
+    (newPage: number) => {
+      console.info("handlePageChange", newPage);
+      dispatch(setPageNumber(newPage));
+    },
+    [dispatch]
+  );
 
   // Refetching part
   useEffect(() => {
@@ -79,6 +91,6 @@ export const useCharacterList = () => {
     handleSearchQueryChange,
     handleFiltersChange,
     handlePageChange,
-    info: data?.characters?.info
+    info: data?.characters?.info,
   };
 };

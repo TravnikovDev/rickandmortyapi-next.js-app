@@ -1,30 +1,28 @@
 import { Input, InputGroup, InputLeftElement } from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons";
-import { ChangeEvent, FC, useState } from "react";
+import { ChangeEvent, FC, useEffect, useState } from "react";
+import { useDebounce } from "use-debounce";
 
 interface SearchBarProps {
   setSearchQuery: (query: string) => void;
 }
 
 const SearchBar: FC<SearchBarProps> = ({ setSearchQuery }) => {
-  const [searchValue, setSearchValue] = useState("");
+  const [searchValue, setSearchValue] = useState<string | undefined>(undefined);
+  const [debouncedSearchValue] = useDebounce(searchValue, 500); // Adjust debounce time as needed
 
   const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchValue(event.target.value);
   };
 
-  const handleSearchSubmit = (event: ChangeEvent<HTMLInputElement>) => {
-    event.preventDefault();
-    setSearchQuery(searchValue);
-  };
+  useEffect(() => {
+    if (debouncedSearchValue !== undefined) {
+      setSearchQuery(debouncedSearchValue);
+    }
+  }, [debouncedSearchValue, setSearchQuery]);
 
   return (
-    <InputGroup
-      mb={10}
-      mx="auto"
-      borderRadius="md"
-      boxShadow="xl"
-    >
+    <InputGroup mb={10} mx="auto" borderRadius="md" boxShadow="xl">
       <InputLeftElement
         pointerEvents="none"
         paddingLeft={3}
@@ -37,7 +35,6 @@ const SearchBar: FC<SearchBarProps> = ({ setSearchQuery }) => {
         placeholder="Search characters"
         value={searchValue}
         onChange={handleSearchChange}
-        onSubmit={handleSearchSubmit}
         background="brand.background"
         borderColor="transparent"
         _hover={{

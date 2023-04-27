@@ -1,4 +1,4 @@
-import { Button, ButtonGroup, Text } from "@chakra-ui/react";
+import { Button, ButtonGroup, Text, Flex } from "@chakra-ui/react";
 
 interface PaginationProps {
   currentPage: number;
@@ -19,15 +19,37 @@ export const Pagination: React.FC<PaginationProps> = ({
       <Button
         onClick={() => onPageChange(currentPage - 1)}
         isDisabled={isFirstPage}
+        background="brand.primary"
+        color="brand.text"
+        _hover={{
+          background: "brand.primary",
+          opacity: 0.8,
+        }}
+        _active={{
+          background: "brand.primary",
+          opacity: 0.6,
+        }}
       >
         Previous
       </Button>
-      <Text fontSize="lg" mx={2} color={'white'}>
-        {currentPage} / {totalPages}
-      </Text>
+      <Flex alignItems="center" justifyContent="center" mx={2}>
+        <Text fontSize="xl" color="brand.text">
+          {currentPage} / {totalPages}
+        </Text>
+      </Flex>
       <Button
         onClick={() => onPageChange(currentPage + 1)}
         isDisabled={isLastPage}
+        background="brand.primary"
+        color="brand.text"
+        _hover={{
+          background: "brand.primary",
+          opacity: 0.8,
+        }}
+        _active={{
+          background: "brand.primary",
+          opacity: 0.6,
+        }}
       >
         Next
       </Button>
