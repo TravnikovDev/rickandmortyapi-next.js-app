@@ -38,7 +38,8 @@ const SearchBar: FC<SearchBarProps> = ({ setSearchQuery }) => {
         background="brand.background"
         borderColor="transparent"
         _hover={{
-          borderColor: "transparent",
+          borderColor: "brand.primary",
+          boxShadow: "none",
         }}
         _focus={{
           borderColor: "brand.primary",

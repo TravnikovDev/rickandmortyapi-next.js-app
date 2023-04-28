@@ -2,41 +2,46 @@ import { SearchIcon } from "@chakra-ui/icons";
 import {
   Box,
   Stack,
-  Select,
-  useTheme,
   Input,
   InputGroup,
   InputLeftElement,
-  VStack,
 } from "@chakra-ui/react";
-import { FC, ChangeEvent } from "react";
-
-interface Filters {
-  status: string;
-  species: string;
-  gender: string;
-  type: string;
-}
+import { FC, useState } from "react";
+import { CustomSelectFilter } from "./CustomSelectFilter";
+import { useDebouncedCallback } from 'use-debounce';
 
 interface FiltersProps {
   setFilters: (newFilters: Record<string, string>) => void;
 }
 
+export interface ChangeEventStub {
+  target: {
+    name: string;
+    value: string;
+  };
+}
+
 const Filters: FC<FiltersProps> = ({ setFilters }) => {
-  const theme = useTheme();
-  const handleFilterChange = (
-    event: ChangeEvent<HTMLSelectElement | HTMLInputElement>
-  ) => {
+  const [filters, setLocalFilters] = useState<Record<string, string>>();
+
+  const handleFilterChange = (event: ChangeEventStub) => {
     const { name, value } = event.target;
+    const lowerName = name.toLocaleLowerCase();
     setFilters({
-      [name]: value,
+      [lowerName]: value,
+    });
+    setLocalFilters({
+      ...filters,
+      [lowerName]: value,
     });
   };
+
+  const debouncedHandleFilterChange = useDebouncedCallback(handleFilterChange, 300);
 
   return (
     <Box>
       <Stack direction="row" spacing={4} mb={4}>
-        <InputGroup borderRadius="md" boxShadow="xl">
+        <InputGroup borderRadius="md" boxShadow="xl" w={"50%"}>
           <InputLeftElement
             pointerEvents="none"
             paddingLeft={3}
@@ -48,11 +53,12 @@ const Filters: FC<FiltersProps> = ({ setFilters }) => {
             type="text"
             name="species"
             placeholder="Species"
-            onChange={handleFilterChange}
+            onChange={debouncedHandleFilterChange}
             background="brand.background"
             borderColor="transparent"
             _hover={{
-              borderColor: "transparent",
+              borderColor: "brand.primary",
+              boxShadow: "none",
             }}
             _focus={{
               borderColor: "brand.primary",
@@ -63,26 +69,12 @@ const Filters: FC<FiltersProps> = ({ setFilters }) => {
             fontWeight="medium"
           />
         </InputGroup>
-        <Select
-          name="status"
-          placeholder="Status"
-          onChange={handleFilterChange}
-          background="brand.background"
-          borderColor="transparent"
-          _hover={{
-            borderColor: "transparent",
-          }}
-          _focus={{
-            borderColor: "brand.primary",
-            boxShadow: "none",
-          }}
-          color="brand.text"
-          fontWeight="medium"
-        >
-          <option value="alive">Alive</option>
-          <option value="dead">Dead</option>
-          <option value="unknown">Unknown</option>
-        </Select>
+        <CustomSelectFilter
+          takeAction={debouncedHandleFilterChange}
+          name="Status"
+          options={["Alive", "Dead", "Unknown"]}
+          selectedValue={filters?.["status"]}
+        />
       </Stack>
       <Stack direction="row" spacing={4}>
         <InputGroup borderRadius="md" boxShadow="xl">
@@ -97,11 +89,12 @@ const Filters: FC<FiltersProps> = ({ setFilters }) => {
             type="text"
             name="type"
             placeholder="Type"
-            onChange={handleFilterChange}
+            onChange={debouncedHandleFilterChange}
             background="brand.background"
             borderColor="transparent"
             _hover={{
-              borderColor: "transparent",
+              borderColor: "brand.primary",
+              boxShadow: "none",
             }}
             _focus={{
               borderColor: "brand.primary",
@@ -112,27 +105,12 @@ const Filters: FC<FiltersProps> = ({ setFilters }) => {
             fontWeight="medium"
           />
         </InputGroup>
-        <Select
-          name="gender"
-          placeholder="Gender"
-          onChange={handleFilterChange}
-          background="brand.background"
-          borderColor="transparent"
-          _hover={{
-            borderColor: "transparent",
-          }}
-          _focus={{
-            borderColor: "brand.primary",
-            boxShadow: "none",
-          }}
-          color="brand.text"
-          fontWeight="medium"
-        >
-          <option value="male">Male</option>
-          <option value="female">Female</option>
-          <option value="genderless">Genderless</option>
-          <option value="unknown">Unknown</option>
-        </Select>
+        <CustomSelectFilter
+          takeAction={debouncedHandleFilterChange}
+          name="Gender"
+          options={["Male", "Female", "Genderless", "Unknown"]}
+          selectedValue={filters?.["gender"]}
+        />
       </Stack>
     </Box>
   );
