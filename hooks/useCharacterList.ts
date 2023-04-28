@@ -41,18 +41,18 @@ export const useCharacterList = () => {
     (query: string) => {
       console.info("handleSearchQueryChange", query);
       dispatch(setSearchQuery(query));
-      dispatch(setPageNumber(1));
+      if (pageNumber > 1) dispatch(setPageNumber(1));
     },
-    [dispatch]
+    [dispatch, pageNumber]
   );
 
   const handleFiltersChange = useCallback(
     (newFilters: Record<string, string>) => {
       console.info("handleFiltersChange", newFilters);
       dispatch(setFilters(newFilters as CharacterListState["filters"]));
-      dispatch(setPageNumber(1));
+      if (pageNumber > 1) dispatch(setPageNumber(1));
     },
-    [dispatch]
+    [dispatch, pageNumber]
   );
 
   const handlePageChange = useCallback(
