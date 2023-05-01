@@ -5,21 +5,30 @@ import {
   Input,
   InputGroup,
   InputLeftElement,
+  Button,
 } from "@chakra-ui/react";
 import { FC, useState } from "react";
 import { CustomSelectFilter } from "./CustomSelectFilter";
-import { useDebouncedCallback } from 'use-debounce';
+import { useDebouncedCallback } from "use-debounce";
 
 interface FiltersProps {
   setFilters: (newFilters: Record<string, string>) => void;
 }
 
+// We had to use Stub because we can't apply ChangeEvent to CustomSelectFilter
 export interface ChangeEventStub {
   target: {
     name: string;
     value: string;
   };
 }
+
+export const emptyFilters = {
+  status: "",
+  species: "",
+  gender: "",
+  type: "",
+};
 
 const Filters: FC<FiltersProps> = ({ setFilters }) => {
   const [filters, setLocalFilters] = useState<Record<string, string>>();
@@ -36,7 +45,15 @@ const Filters: FC<FiltersProps> = ({ setFilters }) => {
     });
   };
 
-  const debouncedHandleFilterChange = useDebouncedCallback(handleFilterChange, 300);
+  const handleClearFilters = () => {
+    setLocalFilters(emptyFilters);
+    setFilters(emptyFilters);
+  };
+
+  const debouncedHandleFilterChange = useDebouncedCallback(
+    handleFilterChange,
+    300
+  );
 
   return (
     <Box>
@@ -112,6 +129,23 @@ const Filters: FC<FiltersProps> = ({ setFilters }) => {
           selectedValue={filters?.["gender"]}
         />
       </Stack>
+      <Button
+        w={"100%"}
+        mt={4}
+        background="brand.primary"
+        color="brand.text"
+        opacity={!Object.keys(filters || {}).length ? "0.3" : "0.9"}
+        _hover={{
+          background: "brand.primary",
+        }}
+        _active={{
+          background: "brand.primary",
+        }}
+        onClick={handleClearFilters}
+        data-testid="clear-filters-btn"
+      >
+        Clear filters
+      </Button>
     </Box>
   );
 };
