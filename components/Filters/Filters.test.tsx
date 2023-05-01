@@ -1,7 +1,7 @@
 import React from "react";
-import { render, fireEvent, screen } from "@testing-library/react";
+import { render, fireEvent, screen, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
-import Filters from "./index";
+import Filters, { emptyFilters } from "./index";
 
 describe("Filters", () => {
   const setFilters = jest.fn();
@@ -43,5 +43,26 @@ describe("Filters", () => {
     await new Promise((r) => setTimeout(r, 350));
 
     expect(setFilters).toHaveBeenCalledWith({ status: "Alive" });
+  });
+
+  it("should clear filters when 'Clear filters' button is clicked", async () => {
+    // Fill the Species input field
+    const speciesInput = screen.getByPlaceholderText("Species");
+    fireEvent.change(speciesInput, { target: { value: "Human" } });
+
+    // Select an option in the Status dropdown
+    const statusDropdown = screen.getByText("Status");
+    fireEvent.click(statusDropdown);
+    const aliveOption = screen.getByText("Alive");
+    fireEvent.click(aliveOption);
+
+    // Click the "Clear filters" button
+    const clearFiltersBtn = screen.getByTestId("clear-filters-btn");
+    fireEvent.click(clearFiltersBtn);
+
+    // Wait for the setFilters function to be called
+    await waitFor(() => {
+      expect(setFilters).toHaveBeenCalledWith(emptyFilters);
+    });
   });
 });
