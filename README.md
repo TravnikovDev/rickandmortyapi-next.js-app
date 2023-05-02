@@ -113,6 +113,7 @@ This project follows a modular structure with clear separation of components, pa
   - [`Filters`](components/Filters): Component that provides filtering options for character search.
   - [`Layout`](components/Layout): Main layout component that wraps the application and includes the header and footer.
   - [`Pagination`](components/Pagination): Component to handle pagination for character listing.
+  - [`SearchBar`](components/SearchBar): Component to handle search of characters by Name. Contains debounce
 - `pages`: Contains the main pages of the application.
   - [`_app.tsx`](pages/_app.tsx): The main entry point for the application, responsible for initializing global styles and wrappers.
   - [`index.tsx`](pages/index.tsx): The home page component, which lists the characters and provides filtering options.
