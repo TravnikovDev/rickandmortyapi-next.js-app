@@ -24,7 +24,6 @@ query GetCharacters($page: Int, $name: String, $status: String, $species: String
   }
 }
 
-
 query GetCharacterById($id: ID!) {
   character(id: $id) {
     id
@@ -34,6 +33,14 @@ query GetCharacterById($id: ID!) {
     status
     origin {
       name
+    }
+  }
+}
+
+query GetAllCharactersIds {
+  characters {
+    results {
+      id
     }
   }
 }

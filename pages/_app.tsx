@@ -5,7 +5,7 @@ import { store } from "../store/store";
 import theme from "../styles/theme";
 import type { AppProps } from "next/app";
 
-const client = new ApolloClient({
+export const client = new ApolloClient({
   uri: "https://rickandmortyapi.com/graphql",
   cache: new InMemoryCache(),
 });

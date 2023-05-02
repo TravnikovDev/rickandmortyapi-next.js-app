@@ -220,6 +220,11 @@ export type GetCharacterByIdQueryVariables = Exact<{
 
 export type GetCharacterByIdQuery = { __typename?: 'Query', character?: { __typename?: 'Character', id?: string | null, name?: string | null, image?: string | null, species?: string | null, status?: string | null, origin?: { __typename?: 'Location', name?: string | null } | null } | null };
 
+export type GetAllCharactersIdsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAllCharactersIdsQuery = { __typename?: 'Query', characters?: { __typename?: 'Characters', results?: Array<{ __typename?: 'Character', id?: string | null } | null> | null } | null };
+
 
 export const GetCharactersDocument = gql`
     query GetCharacters($page: Int, $name: String, $status: String, $species: String, $type: String, $gender: String) {
@@ -326,3 +331,39 @@ export function useGetCharacterByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookO
 export type GetCharacterByIdQueryHookResult = ReturnType<typeof useGetCharacterByIdQuery>;
 export type GetCharacterByIdLazyQueryHookResult = ReturnType<typeof useGetCharacterByIdLazyQuery>;
 export type GetCharacterByIdQueryResult = Apollo.QueryResult<GetCharacterByIdQuery, GetCharacterByIdQueryVariables>;
+export const GetAllCharactersIdsDocument = gql`
+    query GetAllCharactersIds {
+  characters {
+    results {
+      id
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetAllCharactersIdsQuery__
+ *
+ * To run a query within a React component, call `useGetAllCharactersIdsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAllCharactersIdsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAllCharactersIdsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetAllCharactersIdsQuery(baseOptions?: Apollo.QueryHookOptions<GetAllCharactersIdsQuery, GetAllCharactersIdsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAllCharactersIdsQuery, GetAllCharactersIdsQueryVariables>(GetAllCharactersIdsDocument, options);
+      }
+export function useGetAllCharactersIdsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllCharactersIdsQuery, GetAllCharactersIdsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAllCharactersIdsQuery, GetAllCharactersIdsQueryVariables>(GetAllCharactersIdsDocument, options);
+        }
+export type GetAllCharactersIdsQueryHookResult = ReturnType<typeof useGetAllCharactersIdsQuery>;
+export type GetAllCharactersIdsLazyQueryHookResult = ReturnType<typeof useGetAllCharactersIdsLazyQuery>;
+export type GetAllCharactersIdsQueryResult = Apollo.QueryResult<GetAllCharactersIdsQuery, GetAllCharactersIdsQueryVariables>;
