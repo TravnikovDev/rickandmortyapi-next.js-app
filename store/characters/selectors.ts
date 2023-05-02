@@ -14,8 +14,6 @@ export const selectMergedCharacters = createSelector(
       ...characters,
     };
 
-    console.info(Object.keys(characters));
-
     Object.keys(characters).forEach((id) => {
       mergedCharacters[id] = {
         ...mergedCharacters[id],
