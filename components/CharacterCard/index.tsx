@@ -23,6 +23,7 @@ const CharacterCard: React.FC<CharacterCardProps> = ({ character }) => {
         cursor="pointer"
         _hover={{ boxShadow: "md" }}
         w="300px"
+        margin="0 auto"
         background={"brand.background"}
         data-testid="character-card"
       >

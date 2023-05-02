@@ -51,10 +51,11 @@ const Filters: FC<FiltersProps> = ({ setFilters }) => {
     setFilters(emptyFilters);
   };
 
-  const debouncedHandleFilterChange = useDebouncedCallback(
-    handleFilterChange,
-    300
-  );
+  // ! Had to drop support of debounce for filters to make "Clear button" works perfectly
+  // const handleFilterChange = useDebouncedCallback(
+  //   handleFilterChange,
+  //   300
+  // );
 
   return (
     <Box data-testid="filters-component">
@@ -71,8 +72,8 @@ const Filters: FC<FiltersProps> = ({ setFilters }) => {
             type="text"
             name="species"
             placeholder="Species"
-            // value={filters?.["species"]}
-            onChange={debouncedHandleFilterChange}
+            value={filters?.["species"]}
+            onChange={handleFilterChange}
             background="brand.background"
             borderColor="transparent"
             _hover={{
@@ -89,7 +90,7 @@ const Filters: FC<FiltersProps> = ({ setFilters }) => {
           />
         </InputGroup>
         <CustomSelectFilter
-          takeAction={debouncedHandleFilterChange}
+          takeAction={handleFilterChange}
           name="Status"
           options={["Alive", "Dead", "Unknown"]}
           selectedValue={filters?.["status"]}
@@ -108,8 +109,8 @@ const Filters: FC<FiltersProps> = ({ setFilters }) => {
             type="text"
             name="type"
             placeholder="Type"
-            // value={filters?.["type"]}
-            onChange={debouncedHandleFilterChange}
+            value={filters?.["type"]}
+            onChange={handleFilterChange}
             background="brand.background"
             borderColor="transparent"
             _hover={{
@@ -126,7 +127,7 @@ const Filters: FC<FiltersProps> = ({ setFilters }) => {
           />
         </InputGroup>
         <CustomSelectFilter
-          takeAction={debouncedHandleFilterChange}
+          takeAction={handleFilterChange}
           name="Gender"
           options={["Male", "Female", "Genderless", "Unknown"]}
           selectedValue={filters?.["gender"]}
