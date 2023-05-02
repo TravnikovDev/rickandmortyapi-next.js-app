@@ -79,6 +79,7 @@ const CharacterPage: NextPage = () => {
               background: "brand.primary",
               opacity: 0.6,
             }}
+            data-testid="back-button"
           />
           <Text fontSize="2xl" fontWeight="bold">
             Back to list
@@ -123,10 +124,11 @@ const CharacterPage: NextPage = () => {
                   borderColor="brand.primary"
                   color="brand.text"
                   fontWeight="medium"
+                  data-testid="character-name-input"
                 />
               </FormControl>
             ) : (
-              <Text fontSize="2xl" fontWeight="bold" color="brand.text">
+              <Text fontSize="2xl" fontWeight="bold" color="brand.text" data-testid="character-name">
                 {editedName}
               </Text>
             )}
@@ -143,6 +145,7 @@ const CharacterPage: NextPage = () => {
               <Button
                 onClick={handleEditClick}
                 bg="brand.secondary"
+                data-testid="edit-character-btn"
               >
                 Edit
               </Button>
@@ -150,6 +153,7 @@ const CharacterPage: NextPage = () => {
               <Button
                 onClick={handleSaveClick}
                 bg="brand.primary"
+                data-testid="save-character-btn"
               >
                 Save
               </Button>
