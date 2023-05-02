@@ -1,6 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Character, useGetCharactersQuery } from "../generated/graphql";
-import { RootState } from "../store/store";
 import { setCharacters } from "../store/characters/slice";
 import {
   setSearchQuery,
@@ -10,15 +9,14 @@ import {
   CharacterListState,
 } from "../store/characterList/slice";
 import { useCallback, useEffect } from "react";
+import { selectMergedCharacters } from "../store/characters/selectors";
 
 export const useCharacterList = () => {
   const dispatch = useDispatch();
   const { searchQuery, filters, pageNumber } = useSelector(
     selectCharacterListState
   );
-  const characterList = useSelector(
-    (state: RootState) => state.characters.list
-  );
+  const characterList = useSelector(selectMergedCharacters);
 
   // Data fetching initialization
   const { refetch, loading, error, data } = useGetCharactersQuery({
@@ -43,7 +41,9 @@ export const useCharacterList = () => {
       dispatch(setSearchQuery(query));
       if (pageNumber > 1) dispatch(setPageNumber(1));
     },
-    [dispatch, pageNumber]
+    // To avoid issue related to pagination
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [dispatch]
   );
 
   const handleFiltersChange = useCallback(

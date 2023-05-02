@@ -14,14 +14,17 @@ import {
   HStack,
   IconButton,
 } from "@chakra-ui/react";
-import { useGetCharacterByIdQuery } from "../../generated/graphql";
+import { Character, useGetCharacterByIdQuery } from "../../generated/graphql";
 import Layout from "../../components/Layout";
 import { useEffect, useState } from "react";
 import { ArrowBackIcon } from "@chakra-ui/icons";
+import { editCharacter } from "../../store/characters/slice";
+import { useDispatch } from "react-redux";
 
 const CharacterPage: NextPage = () => {
   const router = useRouter();
   const { id } = router.query;
+  const dispatch = useDispatch();
 
   const { data, loading, error } = useGetCharacterByIdQuery({
     variables: { id: id as string },
@@ -33,6 +36,7 @@ const CharacterPage: NextPage = () => {
   const [editing, setEditing] = useState(false);
   const [editedName, setEditedName] = useState(character?.name || "");
 
+  // For initializing name field
   useEffect(() => {
     if (character?.name) setEditedName(character?.name);
   }, [character?.name]);
@@ -43,6 +47,9 @@ const CharacterPage: NextPage = () => {
 
   const handleSaveClick = () => {
     setEditing(false);
+    const newCharacter = { ...character } as Character; // Looks like GraphQL and Typecasting are synonyms
+    newCharacter.name = editedName;
+    dispatch(editCharacter({ id: `${id}`, character: newCharacter }));
   };
 
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -56,7 +63,7 @@ const CharacterPage: NextPage = () => {
   return (
     <Layout title={editedName}>
       <Box textAlign="center" marginTop="4">
-        <HStack mb={4} spacing={4} w={'auto'}>
+        <HStack mb={4} spacing={4} w={"auto"}>
           <IconButton
             aria-label="Go back"
             icon={<ArrowBackIcon />}
@@ -104,22 +111,16 @@ const CharacterPage: NextPage = () => {
             />
             {editing ? (
               <FormControl>
-                <FormLabel htmlFor="name">Name</FormLabel>
+                <FormLabel htmlFor="name" color="brand.text">
+                  Name
+                </FormLabel>
                 <Input
                   type="text"
                   id="name"
                   value={editedName}
                   onChange={handleNameChange}
                   background="brand.background"
-                  borderColor="transparent"
-                  borderRadius="none"
-                  _hover={{
-                    borderColor: "transparent",
-                  }}
-                  _focus={{
-                    borderColor: "brand.primary",
-                    boxShadow: "none",
-                  }}
+                  borderColor="brand.primary"
                   color="brand.text"
                   fontWeight="medium"
                 />
@@ -141,14 +142,14 @@ const CharacterPage: NextPage = () => {
             {!editing ? (
               <Button
                 onClick={handleEditClick}
-                colorScheme="brand.primaryScheme"
+                bg="brand.secondary"
               >
                 Edit
               </Button>
             ) : (
               <Button
                 onClick={handleSaveClick}
-                colorScheme="brand.primaryScheme"
+                bg="brand.primary"
               >
                 Save
               </Button>

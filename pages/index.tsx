@@ -28,6 +28,7 @@ const HomePage: NextPage = () => {
   } = useCharacterList();
 
   let content;
+  const characterListArray = Object.values(characterList);
 
   // Handling content render without affecting rest of layout
   if (loading) {
@@ -42,7 +43,7 @@ const HomePage: NextPage = () => {
         <Text>Error fetching characters.</Text>
       </Box>
     );
-  } else if (characterList.length === 0) {
+  } else if (characterListArray.length === 0) {
     content = (
       <Box textAlign="center" fontSize={48} fontWeight={"bold"} mt={56}>
         <Text>No characters found matching your search criteria.</Text>
@@ -51,7 +52,7 @@ const HomePage: NextPage = () => {
   } else {
     content = (
       <SimpleGrid columns={[1, 2, 3, 4]} spacing={8} mt={"20%"}>
-        {characterList.map((character) => (
+        {characterListArray.map((character) => (
           <CharacterCard key={character?.id} character={character || {}} />
         ))}
       </SimpleGrid>
@@ -66,7 +67,7 @@ const HomePage: NextPage = () => {
       </Box>
       {content}
       <Flex my={8} justifyContent="center" width="100%">
-        {info && characterList.length > 0 && (
+        {info && characterListArray.length > 0 && (
           <Pagination
             currentPage={pageNumber}
             totalPages={info?.pages || 1}
