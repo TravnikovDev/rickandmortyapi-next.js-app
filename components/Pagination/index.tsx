@@ -35,7 +35,7 @@ export const Pagination: React.FC<PaginationProps> = ({
       </Button>
       <Flex alignItems="center" justifyContent="center" mx={2}>
         <Text fontSize="xl" color="brand.text">
-          <span aria-current="page">{currentPage}</span> / {totalPages}
+          <span aria-current="page" data-testid="current-page">{currentPage}</span> / <span data-testid="total-pages">{totalPages}</span>
         </Text>
       </Flex>
       <Button
