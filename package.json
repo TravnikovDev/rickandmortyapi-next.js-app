@@ -10,7 +10,7 @@
     "generate": "graphql-codegen --config codegen.yml",
     "prepare": "husky install",
     "test": "jest",
-    "test:e2e": "playwright test tests/e2e --config=playwright.config.js"
+    "test:e2e": "playwright test tests/e2e --config=playwright.config.js --headed"
   },
   "dependencies": {
     "@apollo/client": "^3.7.12",
