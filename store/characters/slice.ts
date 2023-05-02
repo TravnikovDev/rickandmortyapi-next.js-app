@@ -2,23 +2,38 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Character, Maybe } from "../../generated/graphql";
 
 interface CharactersState {
-  list: Character[];
+  list: Record<string, Partial<Character>>;
+  editedCharacters: Record<string, Partial<Character>>;
 }
 
 const initialState: CharactersState = {
-  list: [],
+  list: {},
+  editedCharacters: {},
 };
 
 const charactersSlice = createSlice({
   name: "characters",
   initialState,
   reducers: {
-    setCharacters: (state, action: PayloadAction<Character[]>) => {
-      state.list = action.payload;
+    setCharacters: (state, action: PayloadAction<Partial<Character[]>>) => {
+      state.list = action.payload.reduce((obj, character) => {
+        if (character) {
+          return Object.assign(obj, { [`${character.id}`]: character });
+        } else {
+          return {};
+        }
+      }, {});
+    },
+    editCharacter: (
+      state,
+      action: PayloadAction<{ id: string; character: Partial<Character> }>
+    ) => {
+      const { id, character } = action.payload;
+      state.editedCharacters[id] = character;
     },
   },
 });
 
-export const { setCharacters } = charactersSlice.actions;
+export const { setCharacters, editCharacter } = charactersSlice.actions;
 
 export default charactersSlice.reducer;

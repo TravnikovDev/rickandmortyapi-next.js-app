@@ -11,10 +11,9 @@ This project is a web application that allows users to explore characters from t
 - Responsive design
 - Dark mode
 
-## Prerequisites
+## Demo
 
-- Node.js 14.x or later
-- npm 6.x or later
+Project is deployed on [GitHub pages](https://travnikovdev.github.io/rickandmortyapi-next.js-app/)
 
 ## Installation
 
@@ -46,7 +45,7 @@ npm run dev
 
 The application will be available at <http://localhost:3000>.
 
-## Building for Production
+## Building and Running in Production Mode
 
 To build the application for production, run:
 
@@ -56,12 +55,10 @@ npm run build
 
 This command will generate a .next folder containing the optimized production build.
 
-## Running in Production Mode
-
 To start the production server, run:
 
 ```bash
-npm start
+npm run start
 ```
 
 The application will be available at <http://localhost:3000>.
@@ -118,23 +115,17 @@ This project follows a modular structure with clear separation of components, pa
   - [`Pagination`](components/Pagination): Component to handle pagination for character listing.
 - `pages`: Contains the main pages of the application.
   - [`_app.tsx`](pages/_app.tsx): The main entry point for the application, responsible for initializing global styles and wrappers.
-  - [`_document.tsx`](pages/_document.tsx): Customizes the default HTML document structure for the application.
   - [`index.tsx`](pages/index.tsx): The home page component, which lists the characters and provides filtering options.
   - [`characters/[id].tsx`](pages/characters/%5Bid%5D.tsx): The character details page component, displaying information for a specific character.
-- `public`: Contains static assets like images and fonts.
-- `styles`: Contains global styles and theme configurations.
 
 Other important files:
 
 - `tsconfig.json`: TypeScript configuration file.
-- `next-env.d.ts`: Next.js TypeScript declarations.
-- `next.config.js`: Next.js configuration file.
-- `.babelrc`: Babel configuration file.
 - `.eslintrc.js`: ESLint configuration file.
-- `.prettierrc`: Prettier configuration file.
 - `package.json`: Lists dependencies, scripts, and other metadata for the project.
-
-
+- `codegen.yml`: Setup file for `graphql-codegen`
+- `jest.config.js`: configuration file for unit tests
+- `playwright.config.js`: configuration file for End-2-End tests
 
 ## Contributing
 
