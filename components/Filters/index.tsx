@@ -31,7 +31,8 @@ export const emptyFilters = {
 };
 
 const Filters: FC<FiltersProps> = ({ setFilters }) => {
-  const [filters, setLocalFilters] = useState<Record<string, string>>();
+  const [filters, setLocalFilters] =
+    useState<Record<string, string>>(emptyFilters);
 
   const handleFilterChange = (event: ChangeEventStub) => {
     const { name, value } = event.target;
@@ -56,7 +57,7 @@ const Filters: FC<FiltersProps> = ({ setFilters }) => {
   );
 
   return (
-    <Box>
+    <Box data-testid="filters-component">
       <Stack direction="row" spacing={4} mb={4}>
         <InputGroup borderRadius="md" boxShadow="xl" w={"50%"}>
           <InputLeftElement
@@ -70,6 +71,7 @@ const Filters: FC<FiltersProps> = ({ setFilters }) => {
             type="text"
             name="species"
             placeholder="Species"
+            // value={filters?.["species"]}
             onChange={debouncedHandleFilterChange}
             background="brand.background"
             borderColor="transparent"
@@ -106,6 +108,7 @@ const Filters: FC<FiltersProps> = ({ setFilters }) => {
             type="text"
             name="type"
             placeholder="Type"
+            // value={filters?.["type"]}
             onChange={debouncedHandleFilterChange}
             background="brand.background"
             borderColor="transparent"
@@ -134,7 +137,7 @@ const Filters: FC<FiltersProps> = ({ setFilters }) => {
         mt={4}
         background="brand.primary"
         color="brand.text"
-        opacity={!Object.keys(filters || {}).length ? "0.3" : "0.9"}
+        opacity={filters === emptyFilters ? "0.3" : "0.9"}
         _hover={{
           background: "brand.primary",
         }}

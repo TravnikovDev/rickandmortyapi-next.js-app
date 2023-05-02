@@ -1,5 +1,5 @@
 // tests/e2e/filters.e2e.test.js
-const { test, expect } = require("@playwright/test");
+import { test, expect } from "@playwright/test";
 
 test.describe("Filters", () => {
   test("should display the Filters component and interact with it", async ({ page }) => {
@@ -15,7 +15,7 @@ test.describe("Filters", () => {
     expect(statusDropdown).toBeTruthy();
 
     // Click the Status dropdown and select an option
-    await statusDropdown.click();
+    await statusDropdown?.click();
     await page.click("text='Alive'");
 
     // Test if the "Clear filters" button exists
@@ -23,7 +23,7 @@ test.describe("Filters", () => {
     expect(clearFiltersBtn).toBeTruthy();
 
     // Click the "Clear filters" button
-    await clearFiltersBtn.click();
+    await clearFiltersBtn?.click();
 
     // Add more interactions and assertions based on your requirements
   });

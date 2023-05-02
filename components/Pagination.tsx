@@ -29,12 +29,13 @@ export const Pagination: React.FC<PaginationProps> = ({
           background: "brand.primary",
           opacity: 0.6,
         }}
+        aria-label="Go to previous page"
       >
         Previous
       </Button>
       <Flex alignItems="center" justifyContent="center" mx={2}>
         <Text fontSize="xl" color="brand.text">
-          {currentPage} / {totalPages}
+          <span aria-current="page">{currentPage}</span> / {totalPages}
         </Text>
       </Flex>
       <Button
@@ -50,6 +51,7 @@ export const Pagination: React.FC<PaginationProps> = ({
           background: "brand.primary",
           opacity: 0.6,
         }}
+        aria-label="Go to next page"
       >
         Next
       </Button>

@@ -32,6 +32,7 @@ const SearchBar: FC<SearchBarProps> = ({ setSearchQuery }) => {
       </InputLeftElement>
       <Input
         type="text"
+        data-testid="search-name-input"
         placeholder="Search characters"
         value={searchValue}
         onChange={handleSearchChange}

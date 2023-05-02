@@ -25,6 +25,8 @@ export const CustomSelectFilter = ({
         backgroundColor="brand.background"
         border="1px solid transparent"
         textAlign="left"
+        name={name}
+        aria-label="Open Menu"
         _hover={{
           borderColor: "brand.primary",
           boxShadow: "none",
