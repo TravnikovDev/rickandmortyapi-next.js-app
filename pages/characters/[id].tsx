@@ -1,8 +1,7 @@
-import { NextPage } from "next";
+import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { useRouter } from "next/router";
 import {
   Box,
-  Flex,
   Button,
   FormControl,
   FormLabel,
@@ -14,12 +13,17 @@ import {
   HStack,
   IconButton,
 } from "@chakra-ui/react";
-import { Character, useGetCharacterByIdQuery } from "../../generated/graphql";
+import {
+  Character,
+  GetAllCharactersIdsDocument,
+  useGetCharacterByIdQuery,
+} from "../../generated/graphql";
 import Layout from "../../components/Layout";
 import { useEffect, useState } from "react";
 import { ArrowBackIcon } from "@chakra-ui/icons";
 import { editCharacter } from "../../store/characters/slice";
 import { useDispatch } from "react-redux";
+import { client } from "../_app";
 
 const CharacterPage: NextPage = () => {
   const router = useRouter();
@@ -128,7 +132,12 @@ const CharacterPage: NextPage = () => {
                 />
               </FormControl>
             ) : (
-              <Text fontSize="2xl" fontWeight="bold" color="brand.text" data-testid="character-name">
+              <Text
+                fontSize="2xl"
+                fontWeight="bold"
+                color="brand.text"
+                data-testid="character-name"
+              >
                 {editedName}
               </Text>
             )}
@@ -163,6 +172,26 @@ const CharacterPage: NextPage = () => {
       )}
     </Layout>
   );
+};
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const { data } = await client.query({ query: GetAllCharactersIdsDocument });
+
+  const paths = data.characters.results.map((character: Character) => ({
+    params: { id: character.id },
+  }));
+
+  return {
+    paths,
+    fallback: false,
+  };
+};
+
+// Anyway we need it to avoid Next.js errors
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  return {
+    props: {},
+  };
 };
 
 export default CharacterPage;
