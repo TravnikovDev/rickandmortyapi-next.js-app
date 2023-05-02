@@ -37,7 +37,6 @@ export const useCharacterList = () => {
 
   const handleSearchQueryChange = useCallback(
     (query: string) => {
-      console.info("handleSearchQueryChange", query);
       dispatch(setSearchQuery(query));
       if (pageNumber > 1) dispatch(setPageNumber(1));
     },
@@ -48,7 +47,6 @@ export const useCharacterList = () => {
 
   const handleFiltersChange = useCallback(
     (newFilters: Record<string, string>) => {
-      console.info("handleFiltersChange", newFilters);
       dispatch(setFilters(newFilters as CharacterListState["filters"]));
       if (pageNumber > 1) dispatch(setPageNumber(1));
     },
@@ -57,7 +55,6 @@ export const useCharacterList = () => {
 
   const handlePageChange = useCallback(
     (newPage: number) => {
-      console.info("handlePageChange", newPage);
       dispatch(setPageNumber(newPage));
     },
     [dispatch]
