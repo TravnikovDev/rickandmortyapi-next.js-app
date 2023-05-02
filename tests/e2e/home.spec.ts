@@ -105,9 +105,8 @@ test.describe("Home Page", () => {
     const allCharacterCards = await page.locator(".character-card");
     expect(allCharacterCards).toHaveCount(20);
 
-    //  Here's two important tests. They fails. I'm too lazy to fix the issue, because need to rewrite component logic
-    // expect(await page.locator('[name="species"]')).toHaveValue("");
-    // expect(await page.locator('[name="type"]')).toHaveText("");
+    expect(await page.locator('[name="species"]')).toHaveValue("");
+    expect(await page.locator('[name="type"]')).toHaveText("");
     expect(await page.locator('[name="Gender"]')).toHaveText("Gender");
   });
 
