@@ -175,10 +175,10 @@ const CharacterPage: NextPage = () => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const { data } = await client.query({ query: GetAllCharactersIdsDocument });
+  const ids = Array.from({ length: 700 }, (_, i) => i + 1);
 
-  const paths = data.characters.results.map((character: Character) => ({
-    params: { id: character.id },
+  const paths = ids.map((id: number) => ({
+    params: { id: `${id}` },
   }));
 
   return {
