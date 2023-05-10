@@ -22,6 +22,7 @@ const Layout = ({ title, children }: LayoutProps) => {
         backgroundPosition="0 -400px"
         backgroundColor="black"
         backgroundRepeat="no-repeat"
+        backgroundSize={["auto", "auto", "auto", "auto", "auto", "contain"]}
       >
         <Container maxW="container.xl" py={10}>
           <Heading
