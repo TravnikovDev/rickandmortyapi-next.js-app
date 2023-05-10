@@ -28,7 +28,7 @@ const CharacterCard: React.FC<CharacterCardProps> = ({ character }) => {
         data-testid="character-card"
       >
         <Image src={`${character.image}`} alt={`${character.name}`} />
-        <VStack p={4} spacing={2} alignItems="start">
+        <VStack p={4} spacing={2} alignItems="start" minHeight="325px">
           <Text
             fontSize="2xl"
             fontWeight="bold"
