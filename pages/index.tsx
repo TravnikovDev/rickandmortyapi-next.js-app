@@ -51,7 +51,7 @@ const HomePage: NextPage = () => {
     );
   } else {
     content = (
-      <SimpleGrid columns={[1, 2, 3, 4]} spacing={8} mt={"20%"}>
+      <SimpleGrid minChildWidth="300px" spacing={4} mt={"20%"}>
         {characterListArray.map((character) => (
           <CharacterCard key={character?.id} character={character || {}} />
         ))}

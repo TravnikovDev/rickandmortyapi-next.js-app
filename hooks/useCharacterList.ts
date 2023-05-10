@@ -56,6 +56,7 @@ export const useCharacterList = () => {
   const handlePageChange = useCallback(
     (newPage: number) => {
       dispatch(setPageNumber(newPage));
+      window.scrollTo({ top: 0, behavior: "smooth" });
     },
     [dispatch]
   );

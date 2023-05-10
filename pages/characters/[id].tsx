@@ -155,6 +155,10 @@ const CharacterPage: NextPage = () => {
                 onClick={handleEditClick}
                 bg="brand.secondary"
                 data-testid="edit-character-btn"
+                _hover={{
+                  background: "brand.secondary",
+                  opacity: 0.8,
+                }}
               >
                 Edit
               </Button>
@@ -163,6 +167,10 @@ const CharacterPage: NextPage = () => {
                 onClick={handleSaveClick}
                 bg="brand.primary"
                 data-testid="save-character-btn"
+                _hover={{
+                  background: "brand.primary",
+                  opacity: 0.8,
+                }}
               >
                 Save
               </Button>
