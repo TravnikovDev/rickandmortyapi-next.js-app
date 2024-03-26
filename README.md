@@ -1,5 +1,7 @@
 # Rick and Morty Character Explorer
 
+[Project repository](https://github.com/TravnikovDev/rickandmortyapi-next.js-app)
+
 This project is a web application that allows users to explore characters from the Rick and Morty TV series. It uses Next.js, Chakra UI, and GraphQL with Apollo Client to create an interactive and responsive user interface.
 
 ## Features
